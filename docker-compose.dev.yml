@@ -1,0 +1,46 @@
+services:
+  # Backend API Service (Development)
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    container_name: queen-style-backend-dev
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      PORT: 3000
+      DATABASE_URL: ${DATABASE_URL}
+      JWT_SECRET: ${JWT_SECRET}
+      JWT_EXPIRES_IN: ${JWT_EXPIRES_IN:-7d}
+      SESSION_SECRET: ${SESSION_SECRET}
+      FRONTEND_URL: ${FRONTEND_URL:-http://localhost:3001}
+    ports:
+      - "3000:3000"
+    volumes:
+      # Mount source code for hot reload
+      - .:/app
+      - /app/node_modules
+      # Persist uploads directory for product images
+      - ./uploads:/app/uploads
+    command: sh -c "npx prisma generate && npx prisma migrate deploy && npm run dev"
+
+  # Frontend Next.js Service (Development)
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile.dev
+    container_name: queen-style-frontend-dev
+    restart: unless-stopped
+    environment:
+      NODE_ENV: development
+      NEXT_PUBLIC_API_URL: ${NEXT_PUBLIC_API_URL:-http://backend:3000}
+    ports:
+      - "3001:3001"
+    volumes:
+      # Mount source code for hot reload
+      - ./frontend:/app
+      - /app/node_modules
+      - /app/.next
+    depends_on:
+      - backend
+    command: npm run dev

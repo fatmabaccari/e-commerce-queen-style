@@ -1,0 +1,112 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import 'swiper/css';
+@import 'swiper/css/navigation';
+@import 'swiper/css/pagination';
+
+:root {
+  --foreground-rgb: 0, 0, 0;
+  --background-start-rgb: 214, 219, 220;
+  --background-end-rgb: 255, 255, 255;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --foreground-rgb: 255, 255, 255;
+    --background-start-rgb: 0, 0, 0;
+    --background-end-rgb: 0, 0, 0;
+  }
+}
+
+body {
+  color: rgb(var(--foreground-rgb));
+  background: linear-gradient(
+      to bottom,
+      transparent,
+      rgb(var(--background-end-rgb))
+    )
+    rgb(var(--background-start-rgb));
+}
+/* Animations luxe */
+@keyframes fadeUp {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .mask-gradient {
+    mask-image: linear-gradient(to bottom, transparent, black 20%, black 80%, transparent);
+  }
+
+  .perspective-1000 {
+    perspective: 1000px;
+  }
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+::-webkit-scrollbar-track {
+  @apply bg-gray-100;
+}
+
+::-webkit-scrollbar-thumb {
+  @apply bg-gradient-to-b from-yellow-400 to-black rounded-full;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  @apply from-yellow-600 to-black;
+}
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+@keyframes slideUp {
+  from {
+    transform: translateY(12px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.animate-slideUp {
+  animation: slideUp 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Couleur or personnalisée pour le luxe */
+:root {
+  --gold: #D4AF37;
+}
+
+.bg-gold {
+  background-color: var(--gold);
+}
+
+.from-gold {
+  --tw-gradient-from: var(--gold) var(--tw-gradient-from-position);
+  --tw-gradient-stops: var(--tw-gradient-from), var(--tw-gradient-to, rgb(212 175 55 / 0));
+}

@@ -1,0 +1,17 @@
+{
+  "watch": [
+    "app.js",
+    "controllers",
+    "routes",
+    "middlewares",
+    "utils",
+    "services",
+    "config"
+  ],
+  "ext": "js,json",
+  "ignore": [
+    "node_modules",
+    "prisma"
+  ],
+  "exec": "node app.js"
+}
